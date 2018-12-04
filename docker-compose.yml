@@ -1,0 +1,35 @@
+version: '3'
+ 
+services:
+  nginx:
+    build: .
+    container_name: nginx
+    volumes:
+      - ./build/nginx.conf:/etc/nginx/conf.d/default.conf
+      - static_volume:/usr/src/app/media
+    ports:
+      - 80:80
+  api:
+      build: 
+        context: .
+        dockerfile: DockerfileBackend
+      container_name: api
+      command: gunicorn choban.wsgi:application --bind 0.0.0.0:8080 
+      ports:
+        - 8080:8080
+      expose:
+        - 8080
+      volumes:
+        - static_volume:/usr/src/app/media
+      environment:
+        - DATABASE_HOST=ec2-54-217-250-0.eu-west-1.compute.amazonaws.com
+        - DATABASE_NAME=dd0fcem2n8m70d
+        - DATABASE_USER=aasfalgtebqang
+        - DATABASE_PASSWORD=62ad78a1be768da6df20c7801307f01cc30ec4228f357e222e6c7b1bfb15c253
+        - CORS_ORIGIN_ALLOW_ALL=True
+        - SECRET_KEY=cilm0^9**l(b+jo927ptjm2+%fx=jxgi66a%3*c*31rg2^s0z8
+        - ALLOWED_HOSTS=localhost,*
+        - DEBUG=True
+
+volumes:
+  static_volume:
