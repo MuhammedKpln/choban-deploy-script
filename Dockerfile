@@ -19,7 +19,8 @@ RUN mv  build/cchoban /var/www/frontend
 
 
 WORKDIR /tmp
-RUN git clone https://github.com/cchoban/web-client.git client
+ENV VUE_APP_BACKEND_SITE_URL=http://localhost/
+RUN git clone https://github.com/cchoban/web-client.git -b dev client
 WORKDIR /tmp/client
 RUN yarn
 RUN yarn build
