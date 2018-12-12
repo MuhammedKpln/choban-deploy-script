@@ -24,4 +24,4 @@ RUN git clone https://github.com/cchoban/web-client.git -b dev client
 WORKDIR /tmp/client
 RUN yarn
 RUN yarn build
-RUN mv dist/ /var/www/frontend/packages
+RUN mv dist/ /var/www/packages
