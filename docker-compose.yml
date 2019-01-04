@@ -7,7 +7,6 @@ services:
     volumes:
       - ./build/certs/cert.pem:/etc/ssl/certs/cert.pem
       - ./build/certs/key.pem:/etc/ssl/certs/key.pem
-      - ./build/certs/cloudflare.crt:/etc/ssl/certs/cloudflare.crt
       - ./build/nginx.conf:/etc/nginx/conf.d/default.conf
       - media_volume:/usr/src/app/media
       - static_volume:/usr/src/app/static
