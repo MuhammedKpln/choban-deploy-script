@@ -2,7 +2,7 @@ version: '3'
 
 services:
   nginx:
-    build: .
+    image: nginx:alpine
     container_name: nginx
     volumes:
       - ./build/certs/cert.pem:/etc/ssl/certs/cert.pem
@@ -13,11 +13,24 @@ services:
     ports:
       - 80:80
       - 443:443
-  api:
+  frontend:
+    build:
+        context: .
+        dockerfile: DockerfileFrontend
+    container_name: frontend
+    command: "npm run start"
+    ports:
+      - 8081:8081
+    expose:
+    - 8081
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8081
+  backend:
       build:
         context: .
         dockerfile: DockerfileBackend
-      container_name: api
+      container_name: backend
       command: bash -c "python manage.py collectstatic --no-input && gunicorn choban.wsgi:application --bind 0.0.0.0:8080"
       ports:
         - 8080:8080

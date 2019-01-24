@@ -1,0 +1,10 @@
+FROM node:11.7-alpine
+
+RUN apk add git yarn
+
+WORKDIR /tmp
+RUN git clone https://github.com/cchoban/web-client.git -b nuxt client
+WORKDIR /tmp/client
+RUN yarn
+RUN yarn build
+EXPOSE 3000
