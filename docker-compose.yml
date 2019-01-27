@@ -13,6 +13,11 @@ services:
     ports:
       - 80:80
       - 443:443
+    networks:
+      - default
+    depends_on:
+      - frontend
+      - backend
   frontend:
     build:
         context: .
@@ -21,13 +26,13 @@ services:
     command: "npm run start"
     ports:
       - 8081:8081
-    depends_on:
-      - nginx
     expose:
     - 8081
     environment:
       - HOST=0.0.0.0
       - PORT=8081
+    networks:
+    - default
   backend:
       build:
         context: .
@@ -45,6 +50,8 @@ services:
       environment:
         - STATICFILES_DIR=/usr/src/app/static
         - MEDIAFILES_DIR=/usr/src/app/media
+      networks:
+        - default
 
 volumes:
   media_volume:
