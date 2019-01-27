@@ -52,7 +52,16 @@ services:
         - MEDIAFILES_DIR=/usr/src/app/media
       networks:
         - default
-
+  db:
+      image: postgres:11.1-alpine
+      restart: always
+      container_name: db
+      environment:
+        POSTGRES_PASSWORD: "!9ty9I6oiU@9*b"
+        POSTGRES_DB: choban
+        POSTGRES_USER: choban
+      networks:
+        - default
 volumes:
   media_volume:
   static_volume:
