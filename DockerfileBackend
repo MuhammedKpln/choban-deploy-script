@@ -9,7 +9,6 @@ RUN pip install gunicorn
 RUN mkdir /var/log/gunicorn
 WORKDIR /tmp
 RUN mv web/* /backend/
-RUN mv /backend/media/* /usr/src/app/media
 WORKDIR /backend
 ENV STATICFILES_DIR=/usr/src/app/static
 ENV MEDIAFILES_DIR=/usr/src/app/media
