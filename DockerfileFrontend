@@ -6,5 +6,8 @@ WORKDIR /tmp
 RUN git clone https://github.com/cchoban/web-client.git -b nuxt client
 WORKDIR /tmp/client
 RUN yarn
+
+ARG BASE_URL
+ENV BASE_URL=${BASE_URL}
 RUN yarn build
 EXPOSE 8081

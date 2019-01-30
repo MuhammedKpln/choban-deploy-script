@@ -22,6 +22,8 @@ services:
     build:
         context: .
         dockerfile: DockerfileFrontend
+        args:
+          - BASE_URL=http://localhost
     container_name: frontend
     command: "npm run start"
     ports:
@@ -38,7 +40,7 @@ services:
         context: .
         dockerfile: DockerfileBackend
       container_name: backend
-      command: bash -c "python manage.py collectstatic --no-input && gunicorn choban.wsgi:application --bind 0.0.0.0:8080"
+      command: bash -c "gunicorn choban.wsgi:application --bind 0.0.0.0:8080"
       ports:
         - 8080:8080
       expose:
@@ -62,6 +64,9 @@ services:
         POSTGRES_USER: choban
       networks:
         - default
+      volumes:
+        - backup_volume:/docker-entrypoint-initdb.d/latest.dump
 volumes:
   media_volume:
   static_volume:
+  backup_volume:
