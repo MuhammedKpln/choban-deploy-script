@@ -40,7 +40,7 @@ services:
         context: .
         dockerfile: DockerfileBackend
       container_name: backend
-      command: bash -c "gunicorn choban.wsgi:application --bind 0.0.0.0:8080"
+      command: bash -c "cp -r /backend/media/* /usr/src/app/media && python manage.py collectstatic --no-input && gunicorn choban.wsgi:application --bind 0.0.0.0:8080"
       ports:
         - 8080:8080
       expose:
@@ -65,7 +65,8 @@ services:
       networks:
         - default
       volumes:
-        - backup_volume:/docker-entrypoint-initdb.d/latest.dump
+        - ./build/latest.dump:/docker-entrypoint-initdb.d/latest.dump
+        - backup_volume:/docker-entrypoint-initdb.d/
 volumes:
   media_volume:
   static_volume:
