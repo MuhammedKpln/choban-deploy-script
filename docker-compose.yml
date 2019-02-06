@@ -26,13 +26,11 @@ services:
           - BASE_URL=http://localhost
     container_name: frontend
     command: "npm run start"
-    ports:
-      - 8081:8081
     expose:
-    - 8081
+    - 5975
     environment:
       - HOST=0.0.0.0
-      - PORT=8081
+      - PORT=5975
     networks:
     - default
   backend:
@@ -40,11 +38,9 @@ services:
         context: .
         dockerfile: DockerfileBackend
       container_name: backend
-      command: bash -c "cp -r /backend/media/* /usr/src/app/media && python manage.py collectstatic --no-input && gunicorn choban.wsgi:application --bind 0.0.0.0:8080"
-      ports:
-        - 8080:8080
+      command: bash -c "cp -r /backend/media/* /usr/src/app/media && python manage.py collectstatic --no-input && gunicorn choban.wsgi:application --bind 0.0.0.0:5976"
       expose:
-        - 8080
+        - 5976
       volumes:
         - media_volume:/usr/src/app/media
         - static_volume:/usr/src/app/static
