@@ -38,13 +38,13 @@ services:
         context: .
         dockerfile: DockerfileBackend
       container_name: backend
-      command: bash -c "cp -r /backend/media/* /usr/src/app/media && python manage.py collectstatic --no-input && gunicorn choban.wsgi:application --bind 0.0.0.0:5976"
+      command: bash -c "cp -r /backend/src/media/* /usr/src/app/media && python manage.py collectstatic --no-input && gunicorn choban.wsgi:application --bind 0.0.0.0:5976"
       expose:
         - 5976
       volumes:
         - media_volume:/usr/src/app/media
         - static_volume:/usr/src/app/static
-        - ./build/.env:/backend/.env
+        - ./build/.env:/backend/src/.env
       environment:
         - STATICFILES_DIR=/usr/src/app/static
         - MEDIAFILES_DIR=/usr/src/app/media
