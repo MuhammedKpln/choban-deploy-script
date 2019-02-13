@@ -38,7 +38,7 @@ services:
         context: .
         dockerfile: DockerfileBackend
       container_name: backend
-      command: bash -c "cp -r /backend/src/media/* /usr/src/app/media && python manage.py collectstatic --no-input && gunicorn choban.wsgi:application --bind 0.0.0.0:5976"
+      command: bash -c "cp -r /backend/src/media/* /usr/src/app/media && python manage.py collectstatic --no-input && uwsgi --http 0.0.0.0:5976 --module choban.wsgi"
       expose:
         - 5976
       volumes:

@@ -2,7 +2,7 @@ FROM python:3.7.1
 
 WORKDIR /tmp
 RUN mkdir /backend
-RUN git clone https://github.com/cchoban/web.git -b dev
+RUN git clone https://github.com/cchoban/web.git -b uwsgi
 WORKDIR /tmp/web
 RUN pip install -r requirements.txt
 RUN mkdir /var/log/gunicorn
