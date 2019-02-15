@@ -5,7 +5,6 @@ RUN mkdir /backend
 RUN git clone https://github.com/cchoban/web.git
 WORKDIR /tmp/web
 RUN pip install -r requirements.txt
-RUN mkdir /var/log/gunicorn
 WORKDIR /tmp
 RUN mv web/* /backend/
 WORKDIR /backend/src
